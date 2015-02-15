@@ -3,8 +3,8 @@
 #include "ball.hpp"
 #include "player.hpp"
 
-#define X_MAX 200
-#define Y_MAX 150
+#define X_MAX 200  // Width of the field
+#define Y_MAX 150  // Height of the field
 
 /*-----------------------------------------------------------*/
 
@@ -12,8 +12,8 @@
 class Field
 {
     private:
-        Player *playerA, *playerB;
         Ball *ball;
+        Player *playerA, *playerB;
 
     public:
         constexpr static unsigned int end = 10; // Score to end game
@@ -24,12 +24,21 @@ class Field
         // Update positions and scores; also checks collisions
         int update();
 
-        // TESTING: Prints object coordinates and scores
-        void printElements();
-
+        /*
+         * Checks whether a Player scored, attributing a point if so.
+         * Returns true if any Player scored, and false otherwise.
+         */
         bool checkIfScored();
 
-        bool checkCollision();
+        /*
+         * Checks if Ball collided with walls or bars, changing its
+         * speed if so.
+         */
+        void checkCollision();
 
+        // Ends the game by freeing used memory
         void gameOver();
+
+        // TESTING: Prints object coordinates and scores
+        void printElements();
 };

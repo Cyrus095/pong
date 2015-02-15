@@ -1,15 +1,19 @@
-#include <cstdlib>   // srand()
-#include <ctime>     // time()
-#include "field.hpp"
+#include <cstdlib>         // srand()
+#include <ctime>           // time()
+#include "graphics.hpp"
 
 int main(int argc, char **argv)
 {
-    Field field;
+    Graphics *graphics;
 
-    srand(time(NULL)); // Not used anywhere for now...
+    srand(time(NULL));
 
-    while (field.update() == 0)
+    graphics = new Graphics();
+    graphics->run();
+
+    /*while (field.update() == 0) {
         field.printElements();
+    }*/
 
     return 0;
 }

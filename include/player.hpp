@@ -17,8 +17,11 @@ class Player
         // Creates a bar with center on specified coordinates
         Player(double x, double y);
 
-        // Changes the bar's position (vertical movement!)
-        void move();
+        // Moves the Player's bar upwards
+        void moveUp();
+
+        // Moves the Player's bar downwards
+        void moveDown();
 
         // Gives 1 point to the Player
         void updateScore();
