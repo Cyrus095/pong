@@ -1,0 +1,9 @@
+# Files and folders ignored by git
+bin/*
+include/GL/*
+include/SFML/*
+lib/*
+obj/*
+*.tar
+*~
+.dropbox
