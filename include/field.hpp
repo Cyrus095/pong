@@ -3,7 +3,12 @@
 #include "ball.hpp"
 #include "player.hpp"
 
-// Handles the game's ball
+#define X_MAX 200
+#define Y_MAX 150
+
+/*-----------------------------------------------------------*/
+
+// Handles the game's 'world', as well as updating all movement
 class Field
 {
     private:
@@ -11,16 +16,20 @@ class Field
         Ball *ball;
 
     public:
-        constexpr static double sizeX = 200;
-        constexpr static double sizeY = 150;
         constexpr static unsigned int end = 10; // Score to end game
 
         // Initializes the game, setting Ball and Players
         Field();
 
         // Update positions and scores; also checks collisions
-        void update();
+        int update();
 
-        // TESTING: Prints coordinates of the Ball and Players
-        void printPositions();
+        // TESTING: Prints object coordinates and scores
+        void printElements();
+
+        bool checkIfScored();
+
+        bool checkCollision();
+
+        void gameOver();
 };

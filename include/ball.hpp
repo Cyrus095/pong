@@ -1,5 +1,7 @@
 #pragma once
 
+/*-----------------------------------------------------------*/
+
 // Handles the game's ball
 class Ball
 {

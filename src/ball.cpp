@@ -1,5 +1,4 @@
 #include <cmath>    // M_PI, cos(), sin()
-#include <cstdlib>  // rand()
 #include "ball.hpp"
 
 /*-----------------------------------------------------------*/
@@ -8,7 +7,7 @@ Ball::Ball(double x, double y, double angle)
 {
     x = x;
     y = y;
-    v = rand() % 50; // For now...
+    v = 20; // For now...
     angle = angle;
 }
 

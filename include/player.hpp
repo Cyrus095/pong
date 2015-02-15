@@ -1,6 +1,8 @@
 #pragma once
 
-// Handles the player's bar
+/*-----------------------------------------------------------*/
+
+// Handles a player's score and bar
 class Player
 {
     private:

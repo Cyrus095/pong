@@ -1,4 +1,5 @@
 #include "player.hpp"
+#include "field.hpp" // Y_MAX
 
 /*-----------------------------------------------------------*/
 
@@ -15,6 +16,10 @@ void Player::move()
 {
     // TODO: Check player input!
     y += v;
+
+    // Check if the bar left the field
+    if (y > Y_MAX) y = Y_MAX;
+    if (y < 0)     y = 0;
 }
 
 /*-----------------------------------------------------------*/
