@@ -1,12 +1,13 @@
+#include <cstdlib>    // rand()
 #include "player.hpp"
-#include "field.hpp" // Y_MAX
+#include "field.hpp"  // Y_MAX
 
 /*-----------------------------------------------------------*/
 
 Player::Player(double x, double y)
 {
-    x = x;
-    y = y;
+    this->x = x;
+    this->y = y;
     score = 0;
 }
 
@@ -14,10 +15,12 @@ Player::Player(double x, double y)
 
 void Player::move()
 {
-    // TODO: Check player input!
-    y += v;
+    // TODO: Check player input! For now, it's random :P
+    int random = rand() % 2;
+    if (random) y += v;
+    else        y -= v;
 
-    // Check if the bar left the field
+    // Checks if the bar left the field
     if (y > Y_MAX) y = Y_MAX;
     if (y < 0)     y = 0;
 }

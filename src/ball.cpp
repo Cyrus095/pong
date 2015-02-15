@@ -1,29 +1,36 @@
-#include <cmath>    // M_PI, cos(), sin()
 #include "ball.hpp"
+#include "field.hpp" // X_MAX, Y_MAX
 
 /*-----------------------------------------------------------*/
 
-Ball::Ball(double x, double y, double angle)
+Ball::Ball(double vx, double vy)
 {
-    x = x;
-    y = y;
-    v = 20; // For now...
-    angle = angle;
+    this->x = X_MAX/2;
+    this->y = Y_MAX/2;
+    this->vx = vx;
+    this->vy = vy;
 }
 
 /*-----------------------------------------------------------*/
 
 void Ball::move()
 {
-    x += v*cos(angle);
-    y += v*sin(angle);
+    x += vx;
+    y += vy;
 }
 
 /*-----------------------------------------------------------*/
 
-void Ball::collision()
+void Ball::switchVx()
 {
-    angle = M_PI - angle;
+    vx *= -1;
+}
+
+/*-----------------------------------------------------------*/
+
+void Ball::switchVy()
+{
+    vy *= -1;
 }
 
 /*-----------------------------------------------------------*/

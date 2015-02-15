@@ -6,10 +6,11 @@ int main(int argc, char **argv)
 {
     Field field;
 
-    srand(time(NULL)); // Not used anywhere for now...
+    srand(time(NULL));
 
-    while (field.update() == 0)
+    while (field.update() == 0) {
         field.printElements();
+    }
 
     return 0;
 }
