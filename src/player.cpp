@@ -4,7 +4,7 @@
 
 /*-----------------------------------------------------------*/
 
-Player::Player(double x, double y)
+Player::Player(float x, float y)
 {
     this->x = x;
     this->y = y;
@@ -34,28 +34,28 @@ void Player::updateScore()
 
 /*-----------------------------------------------------------*/
 
-double Player::getX()
+float Player::getX()
 {
     return x;
 }
 
 /*-----------------------------------------------------------*/
 
-double Player::getY()
+float Player::getY()
 {
     return y;
 }
 
 /*-----------------------------------------------------------*/
 
-double Player::getRx()
+float Player::getRx()
 {
     return rx;
 }
 
 /*-----------------------------------------------------------*/
 
-double Player::getRy()
+float Player::getRy()
 {
     return ry;
 }

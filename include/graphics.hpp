@@ -2,75 +2,37 @@
 
 #define GLEW_STATIC
 #include "GL/glew.h"
-#include "SFML/Window.hpp"
 
 /*-----------------------------------------------------------*/
 
-// Handles the game window and graphics
-class Graphics
-{
-    private:
-        // Window attributes
-        sf::Window *window;
-        bool running;
+// Vertex shader
+extern const GLchar* vertexSource;
 
-        // OpenGL attributes
-        GLuint vertexShader;
-        GLuint fragmentShader;
-        GLuint shaderProgram;
-        GLint posAttrib;
+// Fragment shader
+extern const GLchar* fragmentSource;
 
-        GLuint vao, vbo;
+/*-----------------------------------------------------------*/
 
-        // Vertex shader
-        const GLchar* vertexSource =
-        "#version 150 core\n"
-        "in vec2 position;"
-        "void main()"
-        "{"
-            "gl_Position = vec4(position, 0.0, 1.0);"
-        "}";
+// Create and return a Vertex Array Object
+GLuint createVao();
 
-        // Fragment shader
-        const GLchar* fragmentSource =
-        "#version 150 core\n"
-        "out vec4 outColor;"
-        "void main()"
-        "{"
-            "outColor = vec4(1.0, 1.0, 1.0, 1.0);"
-        "}";
+// Reuturns a Vertex Buffer Object and copies the vertex data to it
+GLuint createVbo(GLfloat vertices[]);
 
-    public:
-        // Initializes the game window
-        Graphics();
+// Returns an Element Buffer Object and copies the element data to it
+GLuint createEbo( GLuint elements[]);
 
-        // Frees data used by the object
-        ~Graphics();
+/*
+ * Compiles the vertex shader. Leaves program
+ * if an error is detected during the process.
+ */
+GLuint compileVertexShader();
 
-        // Important function, needs beter description
-        void run();
+/*
+ * Compiles the fragment shader. Leaves program
+ * if an error is detected during the process.
+ */
+GLuint compileFragmentShader();
 
-        // Checks user input and reacts accordingly
-        void checkInput(sf::Event windowEvent);
-
-        /*
-         * Compiles the vertex shader. Leaves program
-         * if an error is detected during the process.
-         */
-        void compileVertexShader();
-
-        /*
-         * Compiles the fragment shader. Leaves program
-         * if an error is detected during the process.
-         */
-        void compileFragmentShader();
-
-        // Checks if ashader was correctly compiled
-        GLuint checkShader(GLuint shader);
-
-        // Combine vertex and fragment shaders into a program
-        void combineShaders();
-
-        // Makes some kind of link
-        void linkAttributes();
-};
+// Combine vertex and fragment shaders into a program
+GLuint combineShaders(GLuint vertexShader, GLuint fragmentShader);

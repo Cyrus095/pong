@@ -14,17 +14,16 @@ Field::Field()
 
 int Field::update()
 {
+    ball->draw();
+    return 0;
+
     // Moves objects
     ball->move();
-    /*
-     * TODO: Check input to move Player bars!
-     */
+    // TODO: Check input to move Player bars!
 
-    // Check for collisions
+    // Check for scoring or collisions
     if (checkIfScored()) {
-        // Recreate the ball
-        delete ball;
-        ball = new Ball(3, 4);
+        ball->setXY(X_MAX/2, Y_MAX/2);
     }
     else checkCollision();
 
@@ -61,10 +60,10 @@ bool Field::checkIfScored()
 
 void Field::checkCollision()
 {
-    double dxA = ball->getX() - playerA->getX();
-    double dyA = ball->getY() - playerA->getY();
-    double dxB = ball->getX() - playerB->getX();
-    double dyB = ball->getY() - playerB->getY();
+    float dxA = ball->getX() - playerA->getX();
+    float dyA = ball->getY() - playerA->getY();
+    float dxB = ball->getX() - playerB->getX();
+    float dyB = ball->getY() - playerB->getY();
 
     // Collision on x axis
     if (abs(dxA) < playerA->getRx()/2 + ball->getRadius()

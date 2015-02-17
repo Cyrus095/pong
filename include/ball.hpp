@@ -1,19 +1,29 @@
 #pragma once
 
+#include "graphics.hpp"
+
 /*-----------------------------------------------------------*/
 
 // Handles the game's ball
 class Ball
 {
     private:
-        double x, y;       // Position of the Ball's center on the xy axis
-        double vx, vy;     // Speed on the xy axis
+        float x, y;           // Position of the Ball's center on the xy axis
+        float vx, vy;         // Speed on the xy axis
+        GLuint vao, vbo, ebo; // Objects for drawing
+
+        GLuint vertexShader, fragmentShader;
+        GLuint shaderProgram;
+        GLint posAttrib;
 
     public:
-        constexpr static double radius = 1.0;
+        constexpr static float radius = 0.5;
 
         // Creates a Ball on the center of the field with specified speed
-        Ball(double vx, double vy);
+        Ball(float vx, float vy);
+
+        // Clears objects used for drawing
+        ~Ball();
 
         // Changes Ball's position according to it's speed and angle
         void move();
@@ -25,13 +35,16 @@ class Ball
         void switchVy();
 
         // Returns the Ball's "x" position
-        double getX();
+        float getX();
 
         // Returns the Ball's "y" position
-        double getY();
+        float getY();
+
+        // Sets the Ball's "x" and "y" position
+        void setXY(float x, float y);
 
         // Returns the Ball's radius
-        double getRadius();
+        float getRadius();
 
         // Draws the Ball with openGL
         void draw();
