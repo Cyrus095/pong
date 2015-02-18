@@ -2,6 +2,7 @@ CC:= g++
 CFLAGS:= -Wall -O3 -std=c++11 -pedantic -Wno-unused-result
 LIBS:= -lm -lGL -L./lib -lsfml-system -lsfml-window -lGLEW
 MKDIR:= mkdir -p
+CPDIR:= cp -rf
 RMDIR:= rm -rf
 RM:= rm -f
 BINDIR:= bin
@@ -16,7 +17,7 @@ OBJ:= $(patsubst $(SRCDIR)/%.cpp,$(OBJDIR)/%.o,$(SRC))
 INC:= -I$(INCDIR)
 TAR:= $(BIN).tar.gz
 
-.PHONY: all dump tar count clean distclean tarclean run
+.PHONY: all run install dump tar count clean distclean libclean tarclean
 
 all: $(BINDIR)/$(BIN)
 
@@ -34,6 +35,23 @@ $(OBJDIR) $(BINDIR):
 
 run: all
 	export LD_LIBRARY_PATH=./$(LIBDIR) && ./$(BINDIR)/$(BIN)
+
+install:
+	@echo "Downloading SFML..."
+	@wget 'www.sfml-dev.org/files/SFML-2.2-linux-gcc-64-bit.tar.gz'
+	@tar -zxvf SFML-2.2-linux-gcc-64-bit.tar.gz > /dev/null
+	@$(CPDIR) SFML-2.2/include/SFML $(INCDIR)
+	@$(CPDIR) SFML-2.2/lib $(LIBDIR)
+	@$(RMDIR) SFML-2.2* > /dev/null
+	@echo "Downloading GLEW..."
+	@wget 'http://sourceforge.net/projects/glew/files/glew/1.12.0/glew-1.12.0.zip'
+	@unzip glew-1.12.0.zip > /dev/null
+	@echo "Building GLEW..."
+	@cd glew-1.12.0 && make
+	@$(CPDIR) glew-1.12.0/include/GL $(INCDIR)
+	@$(CPDIR) glew-1.12.0/lib/* $(LIBDIR)
+	@$(RMDIR) glew-1.12.0* > /dev/null
+	@echo "Done!"
 
 dump:
 	@echo "src:" $(SRC)
@@ -54,6 +72,9 @@ clean:
 
 distclean: clean
 	$(RMDIR) $(BINDIR)
+
+libclean:
+	$(RMDIR) $(INCDIR)/GL $(INCDIR)/SFML $(LIBDIR)
 
 tarclean:
 	$(RM) $(TAR)
