@@ -1,6 +1,7 @@
 #pragma once
 
 #include "SFML/Window.hpp"
+#include "field.hpp"
 
 /*-----------------------------------------------------------*/
 
@@ -9,6 +10,7 @@ class Window
 {
     private:
         sf::Window *window;
+        Field *field;
         bool running;
 
     public:

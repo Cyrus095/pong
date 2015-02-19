@@ -1,6 +1,5 @@
 #include "window.hpp"
 #include "graphics.hpp"
-#include "field.hpp"
 
 /*-----------------------------------------------------------*/
 
@@ -12,7 +11,7 @@ Window::Window()
 
     window = new sf::Window(sf::VideoMode(800, 600),
                             "Pong",
-                            sf::Style::Close,
+                            sf::Style::Close|sf::Style::Fullscreen,
                             settings);
 
     glewExperimental = GL_TRUE;
@@ -23,7 +22,7 @@ Window::Window()
 
 void Window::run()
 {
-    Field field;
+    field = new Field();
     running = true;
 
     while (running) {
@@ -35,8 +34,8 @@ void Window::run()
         while (window->pollEvent(windowEvent))
             checkInput(windowEvent);
 
-        field.printElements();
-        if (field.update() != 0) running = false;
+        // TESTING: field->printElements();
+        if (field->update() != 0) running = false;
 
         // Swap buffers
         window->display();
@@ -54,11 +53,23 @@ void Window::checkInput(sf::Event windowEvent)
             break;
 
         case sf::Event::KeyPressed:
+            // Main controls
             if (windowEvent.key.code == sf::Keyboard::Escape)
                 running = false;
-            break;
 
-        // TODO: Check input to move Player bars!
+            // Move Player A
+            if (windowEvent.key.code == sf::Keyboard::W)
+                field->moveAUp();
+            if (windowEvent.key.code == sf::Keyboard::S)
+                field->moveADown();
+
+            // Move Player B
+            if (windowEvent.key.code == sf::Keyboard::Up)
+                field->moveBUp();
+            if (windowEvent.key.code == sf::Keyboard::Down)
+                field->moveBDown();
+
+            break;
 
         default:
             break;

@@ -51,6 +51,11 @@ install:
 	@$(CPDIR) glew-1.12.0/include/GL $(INCDIR)
 	@$(CPDIR) glew-1.12.0/lib/* $(LIBDIR)
 	@$(RMDIR) glew-1.12.0* > /dev/null
+	@echo "Installing GLM..."
+	@wget 'http://sourceforge.net/projects/ogl-math/files/glm-0.9.6.3/glm-0.9.6.3.zip'
+	@unzip glm-0.9.6.3.zip > /dev/null
+	@mv glm/glm $(INCDIR)/GLM
+	@$(RMDIR) glm* > /dev/null
 	@echo "Done!"
 
 dump:
@@ -65,7 +70,7 @@ tar:
 	@echo "\033[1;32m" $(TAR) "\033[0mcreated successfully!"
 
 count:
-	wc -l $(SRCDIR)/* $(INCDIR)/*
+	wc -l $(SRCDIR)/* $(INCDIR)/*hpp
 
 clean:
 	$(RMDIR) $(OBJDIR)
@@ -74,7 +79,7 @@ distclean: clean
 	$(RMDIR) $(BINDIR)
 
 libclean:
-	$(RMDIR) $(INCDIR)/GL $(INCDIR)/SFML $(LIBDIR)
+	$(RMDIR) $(INCDIR)/GL $(INCDIR)/glm $(INCDIR)/SFML $(LIBDIR)
 
 tarclean:
 	$(RM) $(TAR)

@@ -10,13 +10,14 @@ class Ball
     private:
         float x, y;   // Position of the Ball's center on the xy axis
         float vx, vy; // Speed on the xy axis
-        constexpr static float radius = 0.5;
+        constexpr static float radius = 1.0;
 
         // OpenGL parameters
         GLuint vao, vbo, ebo; // Objects for drawing
         GLuint vertexShader, fragmentShader;
         GLuint shaderProgram;
         GLint posAttrib;
+        GLint uniModel, uniView, uniProj;
 
     public:
         // Creates a Ball on the center of the field with specified speed
