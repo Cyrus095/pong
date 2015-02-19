@@ -13,7 +13,9 @@ Window::Window()
                             "Pong",
                             sf::Style::Close|sf::Style::Fullscreen,
                             settings);
-    window->setMouseCursorVisible(false); // Hide mouse cursor
+
+    window->setMouseCursorVisible(false);   // Hides mouse cursor
+    window->setFramerateLimit(FRAME_LIMIT); // Sets frame rate!
 
     // Start GLEW
     glewExperimental = GL_TRUE;
@@ -29,9 +31,10 @@ void Window::run()
 
     // Play bgm
     sf::Music music;
-    if (!music.openFromFile("bgm/space.ogg"))
+    if (!music.openFromFile(GAME_BGM))
         exit(-1);
     music.play();
+    music.setLoop(true);
 
     while (running) {
         // Clear the screen to black
@@ -42,7 +45,6 @@ void Window::run()
         while (window->pollEvent(windowEvent))
             windowProperties(windowEvent);
 
-        
         checkInput();
         /* TESTING: field->printElements(); */
         if (field->update() != 0) running = false;

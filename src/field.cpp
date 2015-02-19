@@ -6,7 +6,7 @@
 
 Field::Field()
 {
-    ball    = new Ball(0.03, 0.07);
+    ball    = new Ball(1.5, 2.5);
     playerA = new Player(10, Y_MAX/2);
     playerB = new Player(X_MAX - 10, Y_MAX/2);
 
@@ -39,7 +39,7 @@ Field::Field()
 
     // Set up projection
     glm::mat4 view = glm::lookAt(
-        glm::vec3(X_MAX/2, Y_MAX/2, 129.0f), // Camera position
+        glm::vec3(X_MAX/2, Y_MAX/2, 135.0f), // Camera position
         glm::vec3(X_MAX/2, Y_MAX/2, 0.0f),   // Center of the screen
         glm::vec3(0.0f, 1.0f, 0.0f)          // 'Up' direction of the camera
     );
@@ -166,7 +166,7 @@ void Field::draw()
     glUseProgram(shaderProgram);
     glBindVertexArray(vao);
 
-    for (int dy = 0; dy < Y_MAX; dy += 3*midRectY) {
+    for (int dy = midRectY; dy < Y_MAX; dy += 3*midRectY) {
         glm::mat4 move;
         move = glm::translate(move, glm::vec3(X_MAX/2, dy, 0.0f));
         glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(move));

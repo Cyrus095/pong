@@ -1,12 +1,10 @@
 Pong
 ====
 
-
 ### Introduction
 
   This project is a remake of the classic game [*Pong*](http://en.wikipedia.org/wiki/Pong "More about Pong") using C++ and OpenGL in a Unix-type OS.  
   My main objective is to learn more of the new OpenGL while coding a simple game.
-
 
 ### Libraries
 
@@ -17,7 +15,6 @@ Extra libraries used are:
   - [**GLEW**](http://glew.sourceforge.net/ "GLEW website"), for implementing OpenGL functionality.
 
   - [**GLM**](glm.g-truc.net "GLM website"), for implementing matrices.
-
 
 ### Usage
 
@@ -33,7 +30,6 @@ Extra libraries used are:
 
     $ make run
 
-
 ### Controls
 
   - **Esc**: Leaves game.
@@ -41,7 +37,6 @@ Extra libraries used are:
   - **W/S**: Moves left player up/down.
 
   - **Up/Down**: Moves right player up/down.
-
 
 ### Special Thanks
 

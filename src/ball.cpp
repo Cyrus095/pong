@@ -40,7 +40,7 @@ Ball::Ball(float vx, float vy)
 
     // Set up projection
     glm::mat4 view = glm::lookAt(
-        glm::vec3(X_MAX/2, Y_MAX/2, 130.0f), // Camera position
+        glm::vec3(X_MAX/2, Y_MAX/2, 135.0f), // Camera position
         glm::vec3(X_MAX/2, Y_MAX/2, 0.0f),   // Center of the screen
         glm::vec3(0.0f, 1.0f, 0.0f)          // 'Up' direction of the camera
     );

@@ -79,7 +79,7 @@ distclean: clean
 	$(RMDIR) $(BINDIR)
 
 libclean:
-	$(RMDIR) $(INCDIR)/GL $(INCDIR)/glm $(INCDIR)/SFML $(LIBDIR)
+	$(RMDIR) glew* glm* SFML* $(INCDIR)/GL $(INCDIR)/GLM $(INCDIR)/SFML $(LIBDIR)
 
 tarclean:
 	$(RM) $(TAR)

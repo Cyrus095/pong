@@ -4,6 +4,9 @@
 #include "SFML/Audio.hpp"
 #include "field.hpp"
 
+#define GAME_BGM "bgm/space.ogg"
+#define FRAME_LIMIT 60           // Frames per second
+
 /*-----------------------------------------------------------*/
 
 // Handles the game window

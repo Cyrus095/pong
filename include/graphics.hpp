@@ -23,16 +23,16 @@ GLuint createVbo(GLfloat vertices[], long unsigned int size);
 GLuint createEbo(GLuint elements[], long unsigned int size);
 
 /*
- * Compiles the vertex shader. Leaves program
+ * Compiles a vertex shader. Leaves program
  * if an error is detected during the process.
  */
 GLuint compileVertexShader();
 
 /*
- * Compiles the fragment shader. Leaves program
+ * Compiles a fragment shader. Leaves program
  * if an error is detected during the process.
  */
 GLuint compileFragmentShader();
 
-// Combine vertex and fragment shaders into a program
+// Combines vertex and fragment shaders, returning the created program
 GLuint combineShaders(GLuint vertexShader, GLuint fragmentShader);
