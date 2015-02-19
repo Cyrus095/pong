@@ -5,8 +5,8 @@
 
 Ball::Ball(float vx, float vy)
 {
-    x = 0.0; // X_MAX/2;
-    y = 0.0; // Y_MAX/2;
+    x = X_MAX/2;
+    y = Y_MAX/2;
     this->vx = vx;
     this->vy = vy;
 
@@ -24,8 +24,8 @@ Ball::Ball(float vx, float vy)
 
     // Objects
     vao = createVao();
-    vbo = createVbo(vertices);
-    ebo = createEbo(elements);
+    vbo = createVbo(vertices, sizeof(vertices));
+    ebo = createEbo(elements, sizeof(elements));
 
     // Shaders
     vertexShader = compileVertexShader();
@@ -34,8 +34,8 @@ Ball::Ball(float vx, float vy)
 
     // Link vertex data and attributes
     posAttrib = glGetAttribLocation(shaderProgram, "position");
-    glEnableVertexAttribArray(posAttrib);
     glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 0, 0);
+    glEnableVertexAttribArray(posAttrib);
 }
 
 /*-----------------------------------------------------------*/
@@ -105,5 +105,7 @@ float Ball::getRadius()
 
 void Ball::draw()
 {
+    glUseProgram(shaderProgram);
+    glBindVertexArray(vao);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }

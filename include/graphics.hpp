@@ -17,10 +17,10 @@ extern const GLchar* fragmentSource;
 GLuint createVao();
 
 // Reuturns a Vertex Buffer Object and copies the vertex data to it
-GLuint createVbo(GLfloat vertices[]);
+GLuint createVbo(GLfloat vertices[], long unsigned int size);
 
 // Returns an Element Buffer Object and copies the element data to it
-GLuint createEbo( GLuint elements[]);
+GLuint createEbo(GLuint elements[], long unsigned int size);
 
 /*
  * Compiles the vertex shader. Leaves program

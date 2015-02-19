@@ -14,10 +14,9 @@ class Field
     private:
         Ball *ball;
         Player *playerA, *playerB;
-
-    public:
         constexpr static unsigned int end = 10; // Score to end game
 
+    public:
         // Initializes the game, setting Ball and Players
         Field();
 

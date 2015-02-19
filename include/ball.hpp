@@ -8,17 +8,17 @@
 class Ball
 {
     private:
-        float x, y;           // Position of the Ball's center on the xy axis
-        float vx, vy;         // Speed on the xy axis
-        GLuint vao, vbo, ebo; // Objects for drawing
+        float x, y;   // Position of the Ball's center on the xy axis
+        float vx, vy; // Speed on the xy axis
+        constexpr static float radius = 0.5;
 
+        // OpenGL parameters
+        GLuint vao, vbo, ebo; // Objects for drawing
         GLuint vertexShader, fragmentShader;
         GLuint shaderProgram;
         GLint posAttrib;
 
     public:
-        constexpr static float radius = 0.5;
-
         // Creates a Ball on the center of the field with specified speed
         Ball(float vx, float vy);
 
@@ -46,6 +46,6 @@ class Ball
         // Returns the Ball's radius
         float getRadius();
 
-        // Draws the Ball with openGL
+        // Draws the Ball with OpenGL
         void draw();
 };

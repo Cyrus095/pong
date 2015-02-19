@@ -14,18 +14,17 @@ Field::Field()
 
 int Field::update()
 {
-    ball->draw();
-    return 0;
-
-    // Moves objects
     ball->move();
-    // TODO: Check input to move Player bars!
 
     // Check for scoring or collisions
     if (checkIfScored()) {
         ball->setXY(X_MAX/2, Y_MAX/2);
     }
     else checkCollision();
+
+    ball->draw();
+    playerA->draw();
+    playerB->draw();
 
     // Check if game has ended
     if (playerA->getScore() >= end) {

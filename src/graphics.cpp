@@ -1,10 +1,10 @@
-#include <iostream>
+#include <iostream>     // cout
 #include "graphics.hpp"
 
 static GLuint checkShader(GLuint shader);
 
 const GLchar* vertexSource =
-    "#version 400\n"
+    "#version 150 core\n"
     "in vec2 position;"
     "void main()"
     "{"
@@ -12,7 +12,7 @@ const GLchar* vertexSource =
     "}";
 
 const GLchar* fragmentSource =
-    "#version 400\n"
+    "#version 150 core\n"
     "out vec4 outColor;"
     "void main()"
     "{"
@@ -33,26 +33,26 @@ GLuint createVao()
 
 /*-----------------------------------------------------------*/
 
-GLuint createVbo(GLfloat vertices[])
+GLuint createVbo(GLfloat *vertices, long unsigned int size)
 {
     GLuint vbo;
 
     glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
 
     return vbo;
 }
 
 /*-----------------------------------------------------------*/
 
-GLuint createEbo(GLuint elements[])
+GLuint createEbo(GLuint *elements, long unsigned int size)
 {
     GLuint ebo;
 
     glGenBuffers(1, &ebo);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(elements), elements, GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, elements, GL_STATIC_DRAW);
 
     return ebo;
 }
@@ -68,7 +68,10 @@ GLuint compileVertexShader()
 
     // Check if shader compiled correctly
     if (checkShader(vertexShader) != GL_TRUE) {
+        GLchar buffer[512];
         std::cout << "Error when compiling vertex shader!\n";
+        glGetShaderInfoLog(vertexShader, 512, NULL, buffer);
+        printf("%s\n", buffer);
         exit(1);
     }
 
@@ -86,7 +89,10 @@ GLuint compileFragmentShader()
 
     // Check if shader compiled correctly
     if (checkShader(fragmentShader) != GL_TRUE) {
+        GLchar buffer[512];
         std::cout << "Error when compiling fragment shader!\n";
+        glGetShaderInfoLog(fragmentShader, 512, NULL, buffer);
+        printf("%s\n", buffer);
         exit(1);
     }
 
@@ -116,10 +122,6 @@ GLuint combineShaders(GLuint vertexShader, GLuint fragmentShader)
 static GLuint checkShader(GLuint shader)
 {
     GLint status;
-    GLchar buffer[512];
-
-    glGetShaderInfoLog(shader, 512, NULL, buffer);
-    printf("%s\n", buffer);
     glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
 
     return status;

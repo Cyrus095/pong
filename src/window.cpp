@@ -34,7 +34,8 @@ void Window::run()
         sf::Event windowEvent;
         while (window->pollEvent(windowEvent))
             checkInput(windowEvent);
-        
+
+        field.printElements();
         if (field.update() != 0) running = false;
 
         // Swap buffers
@@ -56,6 +57,8 @@ void Window::checkInput(sf::Event windowEvent)
             if (windowEvent.key.code == sf::Keyboard::Escape)
                 running = false;
             break;
+
+        // TODO: Check input to move Player bars!
 
         default:
             break;
