@@ -10,7 +10,7 @@ class Player
     private:
         float x, y;                      // Position of the bar's center
         unsigned int score;              // Number of points obtained
-        constexpr static float v = 4.0;  // Scalar speed
+        constexpr static float v = 0.06; // Scalar speed
         constexpr static float rx = 1.0; // Distance from center to left/right
         constexpr static float ry = 8.0; // Distance from center to up/down
 

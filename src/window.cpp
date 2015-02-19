@@ -13,7 +13,9 @@ Window::Window()
                             "Pong",
                             sf::Style::Close|sf::Style::Fullscreen,
                             settings);
+    window->setMouseCursorVisible(false); // Hide mouse cursor
 
+    // Start GLEW
     glewExperimental = GL_TRUE;
     glewInit();
 }
@@ -25,6 +27,12 @@ void Window::run()
     field = new Field();
     running = true;
 
+    // Play bgm
+    sf::Music music;
+    if (!music.openFromFile("bgm/space.ogg"))
+        exit(-1);
+    music.play();
+
     while (running) {
         // Clear the screen to black
         glClearColor(0.0, 0.0, 0.0, 1.0);
@@ -32,9 +40,11 @@ void Window::run()
 
         sf::Event windowEvent;
         while (window->pollEvent(windowEvent))
-            checkInput(windowEvent);
+            windowProperties(windowEvent);
 
-        // TESTING: field->printElements();
+        
+        checkInput();
+        /* TESTING: field->printElements(); */
         if (field->update() != 0) running = false;
 
         // Swap buffers
@@ -44,34 +54,29 @@ void Window::run()
 
 /*-----------------------------------------------------------*/
 
-void Window::checkInput(sf::Event windowEvent)
+void Window::windowProperties(sf::Event windowEvent)
 {
-    switch (windowEvent.type) {
+    if (windowEvent.type == sf::Event::Closed)
+        running = false;
+}
 
-        case sf::Event::Closed:
-            running = false;
-            break;
+/*-----------------------------------------------------------*/
 
-        case sf::Event::KeyPressed:
-            // Main controls
-            if (windowEvent.key.code == sf::Keyboard::Escape)
-                running = false;
+void Window::checkInput()
+{
+    // Main controls
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+        running = false;
 
-            // Move Player A
-            if (windowEvent.key.code == sf::Keyboard::W)
-                field->moveAUp();
-            if (windowEvent.key.code == sf::Keyboard::S)
-                field->moveADown();
+    // Move Player A
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+        field->moveAUp();
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+        field->moveADown();
 
-            // Move Player B
-            if (windowEvent.key.code == sf::Keyboard::Up)
-                field->moveBUp();
-            if (windowEvent.key.code == sf::Keyboard::Down)
-                field->moveBDown();
-
-            break;
-
-        default:
-            break;
-    }
+    // Move Player B
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+        field->moveBUp();
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+        field->moveBDown();
 }

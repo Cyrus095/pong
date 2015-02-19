@@ -5,14 +5,14 @@ Pong
 ### Introduction
 
   This project is a remake of the classic game [*Pong*](http://en.wikipedia.org/wiki/Pong "More about Pong") using C++ and OpenGL in a Unix-type OS.  
-  My main objective is mainly to learn more of the new OpenGL while coding a simple game.
+  My main objective is to learn more of the new OpenGL while coding a simple game.
 
 
 ### Libraries
 
 Extra libraries used are:
 
-  - [**SFML**](http://www.sfml-dev.org/ "SFML website"), for creating an OpenGL context (aka "game window").
+  - [**SFML**](http://www.sfml-dev.org/ "SFML website"), for creating an OpenGL context (game window, music and input).
 
   - [**GLEW**](http://glew.sourceforge.net/ "GLEW website"), for implementing OpenGL functionality.
 
@@ -45,6 +45,9 @@ Extra libraries used are:
 
 ### Special Thanks
 
-  Very helpful tutorials:
-  - https://open.gl
-  - http://antongerdelan.net/opengl/vertexbuffers.html
+  - Very helpful tutorials:
+    - https://open.gl
+    - http://antongerdelan.net/opengl/vertexbuffers.html
+
+  - [Aaron Krogh](https://soundcloud.com/aaron-anderson-11 "Aaron's page on Soundcloud") for the awesome music!
+    - *space.ogg* is his *Fashion Models from Space* track.

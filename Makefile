@@ -1,6 +1,6 @@
 CC:= g++
 CFLAGS:= -Wall -O3 -std=c++11 -pedantic -Wno-unused-result
-LIBS:= -lm -lGL -L./lib -lsfml-system -lsfml-window -lGLEW
+LIBS:= -lm -lGL -L./lib -lsfml-audio -lsfml-system -lsfml-window -lGLEW
 MKDIR:= mkdir -p
 CPDIR:= cp -rf
 RMDIR:= rm -rf
@@ -52,8 +52,8 @@ install:
 	@$(CPDIR) glew-1.12.0/lib/* $(LIBDIR)
 	@$(RMDIR) glew-1.12.0* > /dev/null
 	@echo "Installing GLM..."
-	@wget 'http://sourceforge.net/projects/ogl-math/files/glm-0.9.6.3/glm-0.9.6.3.zip'
-	@unzip glm-0.9.6.3.zip > /dev/null
+	@wget 'http://sourceforge.net/projects/ogl-math/files/glm-0.9.6.1/glm-0.9.6.1.zip'
+	@unzip glm-0.9.6.1.zip > /dev/null
 	@mv glm/glm $(INCDIR)/GLM
 	@$(RMDIR) glm* > /dev/null
 	@echo "Done!"

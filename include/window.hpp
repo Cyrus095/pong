@@ -1,6 +1,7 @@
 #pragma once
 
 #include "SFML/Window.hpp"
+#include "SFML/Audio.hpp"
 #include "field.hpp"
 
 /*-----------------------------------------------------------*/
@@ -23,6 +24,9 @@ class Window
         // Important function, needs beter description
         void run();
 
+        // Analyzes if window was closed, resized, etc.
+        void windowProperties(sf::Event windowEvent);
+
         // Checks user input and reacts accordingly
-        void checkInput(sf::Event windowEvent);
+        void checkInput();
 };
