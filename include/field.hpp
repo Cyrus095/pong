@@ -29,6 +29,9 @@ class Field
         // Initializes the game, setting Ball and Players
         Field();
 
+        // Clears Ball, Players and objects used for drawing
+        ~Field();
+
         // Update positions and scores; also checks collisions
         int update();
 
@@ -56,10 +59,7 @@ class Field
          */
         void checkCollision();
 
-        // Ends the game by freeing used memory
-        void gameOver();
-
-        // Draws rectangle line dividing middle of the screen
+        // Draws all objects that belong to the Field
         void draw();
 
         // TESTING: Prints object coordinates and scores

@@ -1,4 +1,5 @@
 #include <iostream>  // cout, abs()
+#include <cmath>     // tan()
 #include "field.hpp"
 #include "matrix.hpp"
 
@@ -24,12 +25,12 @@ Field::Field()
 
     // Objects
     vao = createVao();
-    vbo = createVbo(vertices, sizeof(vertices));
-    ebo = createEbo(elements, sizeof(elements));
+    vbo = createVbo(vertices, sizeof(vertices), GL_STATIC_DRAW);
+    ebo = createEbo(elements, sizeof(elements), GL_STATIC_DRAW);
 
     // Shaders
-    vertexShader = compileVertexShader();
-    fragmentShader = compileFragmentShader();
+    vertexShader = createShader(GL_VERTEX_SHADER, "shader/object.vert");
+    fragmentShader = createShader(GL_FRAGMENT_SHADER, "shader/object.frag");
     shaderProgram = combineShaders(vertexShader, fragmentShader);
 
     // Link vertex data and attributes
@@ -56,14 +57,26 @@ Field::Field()
 
 /*-----------------------------------------------------------*/
 
+Field::~Field()
+{
+    delete ball;
+    delete playerA;
+    delete playerB;
+    glDetachShader(shaderProgram, vertexShader);
+    glDetachShader(shaderProgram, fragmentShader);
+    glDeleteProgram(shaderProgram);
+    glDeleteShader(fragmentShader);
+    glDeleteShader(vertexShader);
+    glDeleteBuffers(1, &vbo);
+    glDeleteBuffers(1, &ebo);
+    glDeleteVertexArrays(1, &vao);
+}
+
+/*-----------------------------------------------------------*/
+
 int Field::update()
 {
     ball->move();
-
-    draw();
-    playerA->draw();
-    playerB->draw();
-    ball->draw();
 
     // Check for scoring or collisions
     if (checkIfScored()) {
@@ -72,14 +85,10 @@ int Field::update()
     else checkCollision();
 
     // Check if game has ended
-    if (playerA->getScore() >= end) {
-        gameOver();
+    if (playerA->getScore() >= end)
         return 1;
-    }
-    if (playerB->getScore() >= end) {
-        gameOver();
+    if (playerB->getScore() >= end)
         return 2;
-    }
 
     return 0;
 }
@@ -137,32 +146,40 @@ void Field::checkCollision()
     float dxB = ball->getX() - playerB->getX();
     float dyB = ball->getY() - playerB->getY();
 
-    // Collision on x axis
-    if ((abs(dxA) < playerA->getRx() + ball->getRadius()
-        && (abs(dyA) < playerA->getRy() + ball->getRadius()))
-        || (abs(dxB) < playerB->getRx() + ball->getRadius()
-        && abs(dyB) < playerB->getRy() + ball->getRadius())) {
-            ball->switchVx();
-    }
+    // Collision on x axis - Player A
+    if ((abs(dxA) <= playerA->getRx() + ball->getRadius()
+        && (abs(dyA) <= playerA->getRy() + ball->getRadius())
+        && ball->getVx() < 0)) {
+            if (abs(tan(dyA/dxA)) >= tan(playerA->getRy()/playerA->getRx()))
+                ball->switchVx();
+            else
+                ball->switchVy();
+        }
+
+    // Collision on x axis - Player B
+    if ((abs(dxB) <= playerB->getRx() + ball->getRadius()
+        && (abs(dyB) <= playerB->getRy() + ball->getRadius())
+        && ball->getVx() > 0)) {
+            if (abs(tan(dyB/dxB)) >= tan(playerB->getRy()/playerB->getRx()))
+                ball->switchVx();
+            else
+                ball->switchVy();
+        }
 
     // Collision on y axis
-    if (ball->getY() < 0 || ball->getY() > Y_MAX)
-        ball->switchVy();
-}
-
-/*-----------------------------------------------------------*/
-
-void Field::gameOver()
-{
-    delete ball;
-    delete playerA;
-    delete playerB;
+    if ((ball->getY() - ball->getRadius() < 0)
+        || (ball->getY() + ball->getRadius() > Y_MAX))
+            ball->switchVy();
 }
 
 /*-----------------------------------------------------------*/
 
 void Field::draw()
 {
+    playerA->draw();
+    playerB->draw();
+    ball->draw();
+
     glUseProgram(shaderProgram);
     glBindVertexArray(vao);
 

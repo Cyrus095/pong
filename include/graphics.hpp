@@ -2,6 +2,7 @@
 
 #define GLEW_STATIC
 #include "GL/glew.h"
+#include <iostream> // std::string, std::cout
 
 /*-----------------------------------------------------------*/
 
@@ -16,23 +17,33 @@ extern const GLchar* fragmentSource;
 // Create and return a Vertex Array Object
 GLuint createVao();
 
-// Reuturns a Vertex Buffer Object and copies the vertex data to it
-GLuint createVbo(GLfloat vertices[], long unsigned int size);
+/*
+ * Returns a Vertex Buffer Object and copies the vertex data to it.
+ * Usage can be:
+ *  GL_STATIC_DRAW:  Data will be uploaded once and drawn many times.
+ *  GL_DYNAMIC_DRAW: Data will be changed from time to time, but drawn
+ *                   many times more than that.
+ *  GL_STREAM_DRAW:  Data will change almost every time it's drawn.
+ */
 
-// Returns an Element Buffer Object and copies the element data to it
-GLuint createEbo(GLuint elements[], long unsigned int size);
+GLuint createVbo(GLfloat vertices[], long unsigned int size, GLenum usage);
 
 /*
- * Compiles a vertex shader. Leaves program
- * if an error is detected during the process.
+ * Returns an Element Buffer Object and copies the element data to it.
+ * Usage can be:
+ *  GL_STATIC_DRAW:  Data will be uploaded once and drawn many times.
+ *  GL_DYNAMIC_DRAW: Data will be changed from time to time, but drawn
+ *                   many times more than that.
+ *  GL_STREAM_DRAW:  Data will change almost every time it's drawn.
  */
-GLuint compileVertexShader();
+GLuint createEbo(GLuint elements[], long unsigned int size, GLenum usage);
 
 /*
- * Compiles a fragment shader. Leaves program
- * if an error is detected during the process.
+ * Create and compile a shader of the specified type and with source
+   contained in 'sourceName' file.
+ * Leaves program if shader couldn't be compiled correctly.
  */
-GLuint compileFragmentShader();
+GLuint createShader(GLenum type, std::string sourceName);
 
-// Combines vertex and fragment shaders, returning the created program
+// Combines a vertex and a fragment shader, returning the created program
 GLuint combineShaders(GLuint vertexShader, GLuint fragmentShader);

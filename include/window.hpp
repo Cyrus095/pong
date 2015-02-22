@@ -14,6 +14,7 @@ class Window
 {
     private:
         sf::Window *window;
+        sf::Music music;
         Field *field;
         bool running;
 
@@ -29,6 +30,9 @@ class Window
 
         // Analyzes if window was closed, resized, etc.
         void windowProperties(sf::Event windowEvent);
+
+        // Plays music defined as GAME_BGM
+        void playMusic();
 
         // Checks user input and reacts accordingly
         void checkInput();

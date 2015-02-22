@@ -24,12 +24,12 @@ Player::Player(float x, float y)
 
     // Objects
     vao = createVao();
-    vbo = createVbo(vertices, sizeof(vertices));
-    ebo = createEbo(elements, sizeof(elements));
+    vbo = createVbo(vertices, sizeof(vertices), GL_STREAM_DRAW);
+    ebo = createEbo(elements, sizeof(elements), GL_STREAM_DRAW);
 
     // Shaders
-    vertexShader = compileVertexShader();
-    fragmentShader = compileFragmentShader();
+    vertexShader = createShader(GL_VERTEX_SHADER, "shader/object.vert");
+    fragmentShader = createShader(GL_FRAGMENT_SHADER, "shader/object.frag");
     shaderProgram = combineShaders(vertexShader, fragmentShader);
 
     // Link vertex data and attributes
@@ -52,6 +52,20 @@ Player::Player(float x, float y)
     glm::mat4 proj = glm::perspective(45.0f, 800.0f / 600.0f, 1.0f, 300.0f);
     uniProj = glGetUniformLocation(shaderProgram, "proj");
     glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(proj));
+}
+
+/*-----------------------------------------------------------*/
+
+Player::~Player()
+{
+    glDetachShader(shaderProgram, vertexShader);
+    glDetachShader(shaderProgram, fragmentShader);
+    glDeleteProgram(shaderProgram);
+    glDeleteShader(fragmentShader);
+    glDeleteShader(vertexShader);
+    glDeleteBuffers(1, &vbo);
+    glDeleteBuffers(1, &ebo);
+    glDeleteVertexArrays(1, &vao);
 }
 
 /*-----------------------------------------------------------*/

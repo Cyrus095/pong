@@ -41,6 +41,12 @@ class Ball
         // Returns the Ball's "y" position
         float getY();
 
+        // Returns the Ball's "x" speed
+        float getVx();
+
+        // Returns the Ball's "y" speed
+        float getVy();
+
         // Sets the Ball's "x" and "y" position
         void setXY(float x, float y);
 

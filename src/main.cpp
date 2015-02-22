@@ -10,6 +10,7 @@ int main(int argc, char **argv)
 
     window = new Window();
     window->run();
+    delete window;
 
     return 0;
 }

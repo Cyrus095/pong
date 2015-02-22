@@ -25,12 +25,12 @@ Ball::Ball(float vx, float vy)
 
     // Objects
     vao = createVao();
-    vbo = createVbo(vertices, sizeof(vertices));
-    ebo = createEbo(elements, sizeof(elements));
+    vbo = createVbo(vertices, sizeof(vertices), GL_STREAM_DRAW);
+    ebo = createEbo(elements, sizeof(elements), GL_STREAM_DRAW);
 
     // Shaders
-    vertexShader = compileVertexShader();
-    fragmentShader = compileFragmentShader();
+    vertexShader = createShader(GL_VERTEX_SHADER, "shader/object.vert");
+    fragmentShader = createShader(GL_FRAGMENT_SHADER, "shader/object.frag");
     shaderProgram = combineShaders(vertexShader, fragmentShader);
 
     // Link vertex data and attributes
@@ -59,6 +59,8 @@ Ball::Ball(float vx, float vy)
 
 Ball::~Ball()
 {
+    glDetachShader(shaderProgram, vertexShader);
+    glDetachShader(shaderProgram, fragmentShader);
     glDeleteProgram(shaderProgram);
     glDeleteShader(fragmentShader);
     glDeleteShader(vertexShader);
@@ -101,6 +103,20 @@ float Ball::getX()
 float Ball::getY()
 {
     return y;
+}
+
+/*-----------------------------------------------------------*/
+
+float Ball::getVx()
+{
+    return vx;
+}
+
+/*-----------------------------------------------------------*/
+
+float Ball::getVy()
+{
+    return vy;
 }
 
 /*-----------------------------------------------------------*/

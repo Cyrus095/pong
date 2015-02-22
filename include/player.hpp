@@ -25,6 +25,9 @@ class Player
         // Creates a bar with center on specified coordinates
         Player(float x, float y);
 
+        // Clears objects used for drawing
+        ~Player();
+
         // Moves the Player's bar upwards
         void moveUp();
 

@@ -24,18 +24,22 @@ Window::Window()
 
 /*-----------------------------------------------------------*/
 
+Window::~Window()
+{
+    delete window;
+}
+
+/*-----------------------------------------------------------*/
+
 void Window::run()
 {
     field = new Field();
     running = true;
 
-    // Play bgm
-    sf::Music music;
-    if (!music.openFromFile(GAME_BGM))
-        exit(-1);
-    music.play();
-    music.setLoop(true);
+    // Play BGM
+    playMusic();
 
+    // Game loop
     while (running) {
         // Clear the screen to black
         glClearColor(0.0, 0.0, 0.0, 1.0);
@@ -48,10 +52,13 @@ void Window::run()
         checkInput();
         /* TESTING: field->printElements(); */
         if (field->update() != 0) running = false;
+        field->draw();
 
         // Swap buffers
         window->display();
     }
+
+    delete field;
 }
 
 /*-----------------------------------------------------------*/
@@ -60,6 +67,18 @@ void Window::windowProperties(sf::Event windowEvent)
 {
     if (windowEvent.type == sf::Event::Closed)
         running = false;
+}
+
+/*-----------------------------------------------------------*/
+
+void Window::playMusic()
+{
+    if (!music.openFromFile(GAME_BGM)) {
+        std::cout << "Error! Music '" << GAME_BGM << "' not found!\n";
+        exit(-1);
+    }
+    music.play();
+    music.setLoop(true);
 }
 
 /*-----------------------------------------------------------*/
