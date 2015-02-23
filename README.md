@@ -18,7 +18,7 @@ Extra libraries used are:
 
 ### Usage
 
-  First of all, make sure that your graphics driver support OpenGL 4.0 or higher.
+  First of all, make sure that your graphics driver supports OpenGL 4.0 or higher.
 
   **1.** Open the project's directory with a Terminal.
   

@@ -9,7 +9,7 @@ Window::Window()
     settings.depthBits = 24;
     settings.stencilBits = 8;
 
-    window = new sf::Window(sf::VideoMode(800, 600),
+    window = new sf::Window(sf::VideoMode::getDesktopMode(),
                             "Pong",
                             sf::Style::Close|sf::Style::Fullscreen,
                             settings);
