@@ -34,7 +34,7 @@ $(OBJDIR) $(BINDIR):
 	$(MKDIR) $@
 
 run: all
-	export LD_LIBRARY_PATH=./$(LIBDIR) && ./$(BINDIR)/$(BIN)
+	LD_LIBRARY_PATH=./$(LIBDIR) ./$(BINDIR)/$(BIN)
 
 install:
 	@echo "Downloading SFML..."

@@ -10,7 +10,7 @@
 /*-----------------------------------------------------------*/
 
 // Handles the game window
-class Window
+class Game
 {
     private:
         sf::Window *window;
@@ -19,16 +19,16 @@ class Window
         bool running;
 
     public:
-        // Initializes the game window
-        Window();
+        // Initializes the game
+        Game();
 
         // Frees data used by the object
-        ~Window();
+        ~Game();
 
-        // Important function, needs beter description
+        // Runs the game loop
         void run();
 
-        // Analyzes if window was closed, resized, etc.
+        // Analyzes if game window was closed, resized, etc.
         void windowProperties(sf::Event windowEvent);
 
         // Plays music defined as GAME_BGM
