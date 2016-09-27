@@ -1,9 +1,9 @@
-#include "window.hpp"
+#include "game.hpp"
 #include "graphics.hpp"
 
 /*-----------------------------------------------------------*/
 
-Window::Window()
+Game::Game()
 {
     sf::ContextSettings settings;
     settings.depthBits = 24;
@@ -11,7 +11,7 @@ Window::Window()
 
     window = new sf::Window(sf::VideoMode::getDesktopMode(),
                             "Pong",
-                            sf::Style::Close|sf::Style::Fullscreen,
+                            sf::Style::Close | sf::Style::Fullscreen,
                             settings);
 
     window->setMouseCursorVisible(false);   // Hides mouse cursor
@@ -22,16 +22,12 @@ Window::Window()
     glewInit();
 }
 
-/*-----------------------------------------------------------*/
-
-Window::~Window()
+Game::~Game()
 {
     delete window;
 }
 
-/*-----------------------------------------------------------*/
-
-void Window::run()
+void Game::run()
 {
     field = new Field();
     running = true;
@@ -41,7 +37,7 @@ void Window::run()
 
     // Game loop
     while (running) {
-        // Clear the screen to black
+        // Clear screen to black
         glClearColor(0.0, 0.0, 0.0, 1.0);
         glClear(GL_COLOR_BUFFER_BIT);
 
@@ -61,17 +57,13 @@ void Window::run()
     delete field;
 }
 
-/*-----------------------------------------------------------*/
-
-void Window::windowProperties(sf::Event windowEvent)
+void Game::windowProperties(sf::Event windowEvent)
 {
     if (windowEvent.type == sf::Event::Closed)
         running = false;
 }
 
-/*-----------------------------------------------------------*/
-
-void Window::playMusic()
+void Game::playMusic()
 {
     if (!music.openFromFile(GAME_BGM)) {
         std::cout << "Error! Music '" << GAME_BGM << "' not found!\n";
@@ -81,9 +73,7 @@ void Window::playMusic()
     music.setLoop(true);
 }
 
-/*-----------------------------------------------------------*/
-
-void Window::checkInput()
+void Game::checkInput()
 {
     // Main controls
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))

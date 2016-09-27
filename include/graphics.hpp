@@ -25,22 +25,17 @@ GLuint createVao();
  *                   many times more than that.
  *  GL_STREAM_DRAW:  Data will change almost every time it's drawn.
  */
-
 GLuint createVbo(GLfloat vertices[], long unsigned int size, GLenum usage);
 
 /*
  * Returns an Element Buffer Object and copies the element data to it.
- * Usage can be:
- *  GL_STATIC_DRAW:  Data will be uploaded once and drawn many times.
- *  GL_DYNAMIC_DRAW: Data will be changed from time to time, but drawn
- *                   many times more than that.
- *  GL_STREAM_DRAW:  Data will change almost every time it's drawn.
+ * Usage follows the previous function.
  */
 GLuint createEbo(GLuint elements[], long unsigned int size, GLenum usage);
 
 /*
  * Create and compile a shader of the specified type and with source
-   contained in 'sourceName' file.
+ * contained in 'sourceName' file.
  * Leaves program if shader couldn't be compiled correctly.
  */
 GLuint createShader(GLenum type, std::string sourceName);

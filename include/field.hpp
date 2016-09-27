@@ -2,28 +2,20 @@
 
 #include "ball.hpp"
 #include "player.hpp"
-
-#define X_MAX 200  // Width of the field
-#define Y_MAX 150  // Height of the field
+#include "drawable.hpp"
 
 /*-----------------------------------------------------------*/
 
 // Handles the game's 'world', as well as updating all movement
-class Field
+class Field : public Drawable
 {
     private:
+        static constexpr unsigned int END_SCORE = 10; // Score to end game
+        static constexpr float MID_RECT_X = 0.5f;
+        static constexpr float MID_RECT_Y = 3.0f;
+
         Ball *ball;
         Player *playerA, *playerB;
-        constexpr static unsigned int end = 10; // Score to end game
-        constexpr static float midRectX = 0.5;  // X radius of the rectangles on middle of the screen
-        constexpr static float midRectY = 3;    // Y radius of the rectangles on middle of the screen
-
-        // OpenGL parameters
-        GLuint vao, vbo, ebo; // Objects for drawing
-        GLuint vertexShader, fragmentShader;
-        GLuint shaderProgram;
-        GLint posAttrib;
-        GLint uniModel, uniView, uniProj;
 
     public:
         // Initializes the game, setting Ball and Players
@@ -35,16 +27,10 @@ class Field
         // Update positions and scores; also checks collisions
         int update();
 
-        // Moves Player A's bar up
+        // Moves Player's bar
         void moveAUp();
-
-        // Moves Player A's bar down
         void moveADown();
-
-        // Moves Player B's bar up
         void moveBUp();
-
-        // Moves Player B's bar down
         void moveBDown();
 
         /*

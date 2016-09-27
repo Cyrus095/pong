@@ -11,65 +11,21 @@ Field::Field()
     playerA = new Player(10, Y_MAX/2);
     playerB = new Player(X_MAX - 10, Y_MAX/2);
 
-    GLfloat vertices[] = {
-        -midRectX, -midRectY,
-        -midRectX,  midRectY,
-         midRectX,  midRectY,
-         midRectX, -midRectY
+    GLfloat vertices[8] = {
+        -MID_RECT_X, -MID_RECT_Y,
+        -MID_RECT_X,  MID_RECT_Y,
+         MID_RECT_X,  MID_RECT_Y,
+         MID_RECT_X, -MID_RECT_Y
     };
 
-    GLuint elements[] = {
-        0, 1, 2,
-        2, 3, 0
-    };
-
-    // Objects
-    vao = createVao();
-    vbo = createVbo(vertices, sizeof(vertices), GL_STATIC_DRAW);
-    ebo = createEbo(elements, sizeof(elements), GL_STATIC_DRAW);
-
-    // Shaders
-    vertexShader = createShader(GL_VERTEX_SHADER, "shader/object.vert");
-    fragmentShader = createShader(GL_FRAGMENT_SHADER, "shader/object.frag");
-    shaderProgram = combineShaders(vertexShader, fragmentShader);
-
-    // Link vertex data and attributes
-    posAttrib = glGetAttribLocation(shaderProgram, "position");
-    glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 0, 0);
-    glEnableVertexAttribArray(posAttrib);
-
-    // Set up projection
-    glm::mat4 view = glm::lookAt(
-        glm::vec3(X_MAX/2, Y_MAX/2, 135.0f), // Camera position
-        glm::vec3(X_MAX/2, Y_MAX/2, 0.0f),   // Center of the screen
-        glm::vec3(0.0f, 1.0f, 0.0f)          // 'Up' direction of the camera
-    );
-
-    uniModel = glGetUniformLocation(shaderProgram, "model");
-
-    uniView = glGetUniformLocation(shaderProgram, "view");
-    glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
-
-    glm::mat4 proj = glm::perspective(45.0f, 800.0f / 600.0f, 1.0f, 300.0f);
-    uniProj = glGetUniformLocation(shaderProgram, "proj");
-    glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(proj));
+    Drawable::begin(vertices, GL_STATIC_DRAW);
 }
-
-/*-----------------------------------------------------------*/
 
 Field::~Field()
 {
     delete ball;
     delete playerA;
     delete playerB;
-    glDetachShader(shaderProgram, vertexShader);
-    glDetachShader(shaderProgram, fragmentShader);
-    glDeleteProgram(shaderProgram);
-    glDeleteShader(fragmentShader);
-    glDeleteShader(vertexShader);
-    glDeleteBuffers(1, &vbo);
-    glDeleteBuffers(1, &ebo);
-    glDeleteVertexArrays(1, &vao);
 }
 
 /*-----------------------------------------------------------*/
@@ -85,9 +41,9 @@ int Field::update()
     else checkCollision();
 
     // Check if game has ended
-    if (playerA->getScore() >= end)
+    if (playerA->getScore() >= END_SCORE)
         return 1;
-    if (playerB->getScore() >= end)
+    if (playerB->getScore() >= END_SCORE)
         return 2;
 
     return 0;
@@ -100,21 +56,15 @@ void Field::moveAUp()
     playerA->moveUp();
 }
 
-/*-----------------------------------------------------------*/
-
 void Field::moveADown()
 {
     playerA->moveDown();
 }
 
-/*-----------------------------------------------------------*/
-
 void Field::moveBUp()
 {
     playerB->moveUp();
 }
-
-/*-----------------------------------------------------------*/
 
 void Field::moveBDown()
 {
@@ -136,8 +86,6 @@ bool Field::checkIfScored()
 
     return false;
 }
-
-/*-----------------------------------------------------------*/
 
 void Field::checkCollision()
 {
@@ -180,13 +128,12 @@ void Field::draw()
     playerB->draw();
     ball->draw();
 
-    glUseProgram(shaderProgram);
-    glBindVertexArray(vao);
+    Drawable::draw();
 
-    for (int dy = midRectY; dy < Y_MAX; dy += 3*midRectY) {
+    for (int dy = MID_RECT_Y; dy < Y_MAX; dy += 3 * MID_RECT_Y) {
         glm::mat4 move;
         move = glm::translate(move, glm::vec3(X_MAX/2, dy, 0.0f));
-        glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(move));
+        glUniformMatrix4fv(getUniModel(), 1, GL_FALSE, glm::value_ptr(move));
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     }
 }

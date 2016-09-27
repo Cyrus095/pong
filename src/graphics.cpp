@@ -17,8 +17,6 @@ GLuint createVao()
     return vao;
 }
 
-/*-----------------------------------------------------------*/
-
 GLuint createVbo(GLfloat *vertices, long unsigned int size, GLenum usage)
 {
     GLuint vbo;
@@ -30,8 +28,6 @@ GLuint createVbo(GLfloat *vertices, long unsigned int size, GLenum usage)
     return vbo;
 }
 
-/*-----------------------------------------------------------*/
-
 GLuint createEbo(GLuint *elements, long unsigned int size, GLenum usage)
 {
     GLuint ebo;
@@ -42,8 +38,6 @@ GLuint createEbo(GLuint *elements, long unsigned int size, GLenum usage)
 
     return ebo;
 }
-
-/*-----------------------------------------------------------*/
 
 GLuint createShader(GLenum type, std::string sourceName)
 {
@@ -70,8 +64,6 @@ GLuint createShader(GLenum type, std::string sourceName)
     return shader;
 }
 
-/*-----------------------------------------------------------*/
-
 GLuint combineShaders(GLuint vertexShader, GLuint fragmentShader)
 {
     GLuint shaderProgram = glCreateProgram();
@@ -85,10 +77,8 @@ GLuint combineShaders(GLuint vertexShader, GLuint fragmentShader)
     return shaderProgram;
 }
 
-/*-----------------------------------------------------------*
- *
+/*
  * Checks if a shader was correctly compiled.
- *
  */
 static GLuint checkShader(GLuint shader)
 {
@@ -98,10 +88,8 @@ static GLuint checkShader(GLuint shader)
     return status;
 }
 
-/*-----------------------------------------------------------*
- *
+/*
  * Reads and returns text from shader source file.
- *
  */
 static std::string readShaderSource(std::string sourceName)
 {
@@ -120,7 +108,6 @@ static std::string readShaderSource(std::string sourceName)
     // Read whole file into a vector:
     std::vector<char> buffer(length);
     file.read(&buffer[0],length);
-
 
     // Return the shader string
     return std::string(buffer.begin(), buffer.end());
